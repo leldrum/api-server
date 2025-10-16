@@ -1,14 +1,12 @@
 import express from 'express'
-import questionRoutes from "./router/questionRouter"
-import userRoutes from "./router/userRouter"
+import todosRoutes from "./router/todosRouter.js"
 const PORT = process.env.PORT || 3000
 
 const app = express()
 
 app.use(express.json())
 
-app.use('/questions', questionRoutes)
-app.use('/users', userRoutes)
+app.use('/todos', todosRoutes)
 
 app.listen(PORT, () => {
     console.log(`server running on http://localhost:${PORT}`)
