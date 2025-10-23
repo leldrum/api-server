@@ -9,7 +9,6 @@
     "exercice1": "nodemon exercice1/server.js",
     "db:push": "drizzle-kit push",
     "db:studio": "drizzle-kit studio"
-
   },
   "keywords": [],
   "author": "",
@@ -21,6 +20,7 @@
     "drizzle-orm": "^0.44.6",
     "express": "^5.1.0",
     "nodemon": "^3.1.10",
+    "uuid": "^13.0.0",
     "zod": "^4.1.12"
   },
   "devDependencies": {

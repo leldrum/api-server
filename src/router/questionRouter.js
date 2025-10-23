@@ -7,6 +7,6 @@ const router = Router()
 
 router.get('/', getAllQuestions)
 router.post('/',validateBody(createQuestionSchema), createQuestions)
-router.delete('/:id', validateParams(questionIdSchema),deleteQuestions)
+router.delete('/:id', validateParams(questionIdSchema), deleteQuestions)
 
 export default router

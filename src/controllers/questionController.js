@@ -1,26 +1,45 @@
-export const getAllQuestions = (req, res) => {
-    res.status(200).send([{
-        id:"1",
-        question:"quelle est la capital de France ?",
-        answer:"Paris"
-    }])
+import { eq } from "drizzle-orm"
+import { db } from "../db/database.js"
+
+import { questiontable } from '../db/schema.js'
+
+export const getAllQuestions = async (req, res) => {
+   try {
+    const result = await db.select().from(questiontable).orderBy('createdAt','desc')
+    res.status(200).json(result)
+   } catch (error) {
+    res.status(500).send({
+        error : "failed to fetch questions"
+    })
+   }
 }
 
-export const createQuestions = (req, res) => {
-    const {question, answer} = req.body
-        if(!question || !answer){
-        return res.status(400).send({
-            error: "Question and answer are required"
+export const createQuestions = async (req, res) => {
+    try {
+        const result = await db.insert(questiontable).values(req.body).returning()
+        res.status(201).json(result)
+       } catch (error) {
+        res.status(500).send({
+            error : "failed to insert questions"
         })
-    }
-    res.status(200).send({
-        message:"Question created succesfully"
-    })
+    } 
 }
 
-export const deleteQuestions = (req, res) => {
+export const deleteQuestions = async (req, res) => {
     const {id} = req.params
-    res.status(200).send({
-        message:`Question ${id} deleted`
-    })
+    try {
+        const result = await db.delete(questiontable).where(eq(questiontable.id, id))
+        if(!result){
+            res.status(404).send({
+                error : "question not found"
+            })
+        }
+        res.status(200).send({
+            message:`Question deleted`
+        })
+       } catch (error) {
+        res.status(500).send({
+            error : "failed to delete questions"
+        })
+    } 
 }
