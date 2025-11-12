@@ -3,6 +3,8 @@ import { db } from "../db/database.js"
 
 import { questiontable } from '../db/schema.js'
 
+import {request, response} from 'express'
+
 export const getAllQuestions = async (req, res) => {
    try {
     const result = await db.select().from(questiontable).orderBy('createdAt','desc')
@@ -25,6 +27,11 @@ export const createQuestions = async (req, res) => {
     } 
 }
 
+/**
+ * @param {request} req
+ * @param {response} res
+ **/
+
 export const deleteQuestions = async (req, res) => {
     const {id} = req.params
     try {
@@ -43,3 +50,8 @@ export const deleteQuestions = async (req, res) => {
         })
     } 
 }
+
+
+// - identification => tu es qui ? => username, email, id, 
+// - authentification => Preuve => mdp, token, clé ssh/ssl, ZFA => TOTP
+// - Autorisation => Droit => (Roles => admin, user - Ressources)
