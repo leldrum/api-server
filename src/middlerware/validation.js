@@ -15,7 +15,8 @@ export const validateBody = (schema) => {
                     })
                 }
                 res.status(500).send({
-                    error: 'internal server error'
+                    error: 'internal server error',
+                    message: error.message || 'An unknown error occurred'
                 })
             }
         }
