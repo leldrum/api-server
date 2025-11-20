@@ -9,7 +9,7 @@ async function seed(){
         await db.delete(questiontable)
         await db.delete(usersTable)
 
-        const mdpHash1 = await bcrypt.hash('passa', 12)
+        const mdpHash1 = await bcrypt.hash('passapassa', 12)
         const mdpHash2 = await bcrypt.hash('passo', 12)
         const mdpHash3 = await bcrypt.hash('passi', 12)
 
@@ -17,24 +17,39 @@ async function seed(){
             {
                 username: "Gerard Deuxpardeux",
                 email: "fibonacci@gmail.com",
-                password: mdpHash1
+                password: mdpHash1,
+                role: 'admin'
 
             },
             {
                 username: "Léo Gressine",
                 email: "francisnganou@gmail.com",
-                password: mdpHash2
+                password: mdpHash2,
+                role: 'user'
 
             },
             {
                 username: "Cristiano Pasdabdo",
                 email: "coupedumonde@gmail.com",
-                password: mdpHash3
+                password: mdpHash3,
+                role: 'user'
 
             }
         ]
         const insertedusers = await db.insert(usersTable).values(seedUsers).returning()
-   
+
+        const seedCategories = [
+            {
+                titre: 'Géographie',
+                description: 'Questions sur la géographie mondiale'
+            },
+            {
+                titre: 'Littérature',
+                description: 'Questions sur les œuvres littéraires et leurs auteurs'
+            }
+        ]
+
+        const insertedCategories = await db.insert(categorieTable).values(seedCategories).returning()
 
 
         const seedQuestions = [
@@ -42,19 +57,23 @@ async function seed(){
                 question: 'Quelle est la cpaitale de la France?',
                 answer: 'Paris',
                 difficulty: 'easy',
-                author: insertedusers[0].id
+                author: insertedusers[0].id,
+                categories: insertedCategories[0].id
             },
             {
                 question: 'Quel est le plus grand océan du monde?',
                 answer: "L'océan Pacifique",
                 difficulty: 'medium',
-                author: insertedusers[1].id
+                author: insertedusers[1].id,
+                categories: insertedCategories[1].id
+
+
             },
             {
                 question: 'Qui a écrit "Les Misérables"?',
                 answer: 'Victor Hugo',
                 difficulty: 'difficult',
-                author: insertedusers[2].id
+                author: insertedusers[2].id,
             },
         ]
 

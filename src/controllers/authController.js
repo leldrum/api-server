@@ -1,4 +1,5 @@
 import { db } from "../db/database.js"
+import { eq } from "drizzle-orm"
 import {request, response} from 'express'
 import bcrypt from "bcrypt";
 import { usersTable } from "../db/schema.js";

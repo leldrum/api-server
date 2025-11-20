@@ -9,3 +9,7 @@ export const createQuestionSchema = z.object({
 export const questionIdSchema = z.object({
     id: z.uuid()
 })
+
+export const questionTextSchema = z.object({
+    question: z.string().min(1).max(300)
+})
